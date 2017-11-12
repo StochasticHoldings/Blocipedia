@@ -1,8 +1,4 @@
 class WikisController < ApplicationController
-  #before_action :require_sign_in, except: :show
-    #before_action :authorize_user, only: [:update, :destroy]
-  #  before_action :authorize_moderator, only: :update
-
   def index
   end
 
@@ -15,7 +11,7 @@ class WikisController < ApplicationController
   end
 
   def create
-    @wiki = wikis.build(wiki_params)
+    @wiki = Wiki.new(wiki_params)
     @wiki.user = current_user
 
     if @wiki.save
@@ -33,7 +29,6 @@ class WikisController < ApplicationController
   end
 
   def update
-    #require("pry-rails"); binding.pry
     @wiki = Wiki.find(params[:id])
     @wiki.assign_attributes(wiki_params)
     if @wiki.save
