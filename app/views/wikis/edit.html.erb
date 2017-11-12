@@ -1,0 +1,15 @@
+<h1>Edit wiki</h1>
+
+ <div class="row">
+   <div class="col-md-4">
+     <p>Guidlines For wikis</p>
+     <ul>
+       <li>Make sure its on topic</li>
+       <li> Make sure you have a picture or a video</li>
+       <li>Make sure to use a Header 2 Tag</li>
+     </ul>
+   </div>
+   <div class="col-md-8">
+     <%= render partial: 'form', locals: { topic: @wiki.topic, wiki: @wiki } %>
+   </div>
+ </div>

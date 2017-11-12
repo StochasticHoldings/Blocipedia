@@ -1,0 +1,12 @@
+<div class="media">
+   <%= render partial: 'votes/voting', locals: { wiki: wiki } %>
+   <div class="media-body">
+     <h4 class="media-heading">
+       <%= link_to wiki.title, topic_wiki_path(wiki.topic, wiki) %>
+     </h4>
+     <small>
+       submitted <%= time_ago_in_words(wiki.created_at) %> ago by <%= wiki.user.name %> <br>
+       <%= wiki.comments.count %> Comments
+     </small>
+   </div>
+ </div>
