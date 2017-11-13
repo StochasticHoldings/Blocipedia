@@ -4,27 +4,14 @@
   </h1>
 </div>
 
-<div class="row">
-  <div class="col-md-8">
-    <div>
-      <%= link_to "Create a new Wiki", new_wiki_path %>
-    </div>
-    <p>some text</p>
-    <div>
-      <h3>Comments</h3>
+<%= link_to "New", new_wiki_path(@wiki), class: 'btn btn-sq-sm btn-success' %>
+
+<% @wikis.each do |wiki| %>
+  <div class="media">
+    <div class="media-body">
+      <h4 class="media-heading">
+        <p><%= link_to wiki.title, wiki_path(wiki.id) %></p>
+      </h4>
     </div>
   </div>
-
-<div class="col-md-4">
-</div>
-
-  <div class="col-md-4">
-    <h3>
-      <div>
-        <small>
-        </small>
-      </div>
-    </h3>
-  </div>
-
-</div>
+<% end %>
