@@ -39,6 +39,8 @@ gem 'random_data'
 
 gem 'faker', :git => 'git://github.com/stympy/faker.git', :branch => 'master'
 
+#Enviroment variables
+ gem 'figaro', '1.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

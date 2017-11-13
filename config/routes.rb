@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
    root 'welcome#index'
 
+   resources :charges, only: [:new, :create]
+
    #root '/users/sign_in'
    #.
 
