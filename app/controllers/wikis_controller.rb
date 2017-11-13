@@ -1,10 +1,6 @@
 class WikisController < ApplicationController
   def index
-    @wikis = Wiki.all
-    authorize @wiki
-  end
-
-  def wiki
+      @wikis = Wiki.all
   end
 
   def show
@@ -12,22 +8,26 @@ class WikisController < ApplicationController
   end
 
   def new
-    @wiki = Wiki.new
+      @wiki = Wiki.new
+      authorize @wiki
   end
 
   def create
-    @wiki = Wiki.new(wiki_params)
-    @wiki.user = current_user
-    authorize @wiki
+      @wiki = Wiki.create(wiki_params)
+      @wiki.title = params[:wiki][:title]
+      @wiki.body = params[:wiki][:body]
 
-    if @wiki.save
-      flash[:notice] = "Wiki was saved."
-      redirect_to [@wiki]
-    else
+      @wiki.user = current_user
 
-      flash.now[:alert] = "There was an error saving the wiki. Please try again."
-      render :new
-    end
+      authorize @wiki
+
+      if @wiki.save
+        flash[:notice] = "Wiki was saved"
+        redirect_to @wiki
+      else
+        flash.now[:alert] = "Error saving Wiki"
+        render :new
+      end
   end
 
   def edit
@@ -37,54 +37,35 @@ class WikisController < ApplicationController
 
   def update
     @wiki = Wiki.find(params[:id])
+    @wiki.title = params[:wiki][:title]
+    @wiki.body = params[:wiki][:body]
+
     authorize @wiki
-    if @post.update(post_params)
-   redirect_to @post
- else
-   render :edit
-    # @wiki.assign_attributes(wiki_params)
-    # if @wiki.save
-    #   flash[:notice] = "wiki was updated."
-    #   redirect_to [@wiki]
-    # else
-    #   flash.now[:alert] = "There was an error saving the wiki. Please try again."
-    #   render :edit
+
+    if @wiki.save
+      flash[:notice] = "Wiki was updated."
+      redirect_to @wiki
+    else
+      flash.now[:alert] = "There was an error saving the post. Please try again."
+      render :edit
     end
   end
 
   def destroy
     @wiki = Wiki.find(params[:id])
     authorize @wiki
+
     if @wiki.destroy
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
-      redirect_to [@wiki]
+      redirect_to wikis_path
     else
-      flash.now[:alert] = "There was an error deleting the wiki."
+      flash.now[:alert] = "There was an error deleting the post."
       render :show
     end
   end
-  # remember to add private methods to the bottom of the file. Any method defined below private, will be private.
+
   private
-
   def wiki_params
-    params.require(:wiki).permit(:title, :body)
-  end
-
-  def authorize_user
-    wiki = Wiki.find(params[:id])
-
-    unless current_user == wiki.user || current_user.admin?
-      flash[:alert] = "You must be an admin to do that."
-      redirect_to [@wiki]
-    end
-  end
-
-  def authorize_moderator
-    wiki = Wiki.find(params[:id])
-
-    unless current_user == wiki.user || current_user.admin? || current_user.moderator?
-      flash[:alert] = "You must be an admin or moderator to do that."
-      redirect_to [@wiki]
-    end
+    params.require(:wiki).permit(:title, :body, :private, :user)
   end
 end
