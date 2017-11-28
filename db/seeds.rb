@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 require 'random_data'
-require 'faker'
+#require 'faker'
 
 10.times do
   User.create!(
