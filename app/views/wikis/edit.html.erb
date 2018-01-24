@@ -2,12 +2,9 @@
 
  <div class="row">
    <div class="col-md-4">
-     <p>Guidlines For wikis</p>
-     <ul>
-       <li>Make sure its on topic</li>
-       <li> Make sure you have a picture or a video</li>
-       <li>Make sure to use a Header 2 Tag</li>
-     </ul>
+     <% if current_user.admin? || current_user.premium? || @wiki.users.include?(current_user) %>
+      <%= render partial: 'collaborators/collaborator_form' %>
+    <% end %>
    </div>
    <div class="col-md-8">
      <%= render partial: 'form', locals: { wiki: @wiki } %>
