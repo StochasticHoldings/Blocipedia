@@ -3,5 +3,6 @@ class Collaborator < ActiveRecord::Base
   belongs_to :wiki
 
   def wiki_collaborations
+    []
   end
 end
