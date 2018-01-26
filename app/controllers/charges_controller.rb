@@ -30,10 +30,23 @@ class ChargesController < ApplicationController
    end
 
   def new
+    if current_user.premium?
+      downgrade_user_to_standard
+      redirect_to wikis_path
+      return
+    end
+
     @stripe_btn_data = {
       key: "#{ Rails.configuration.stripe[:publishable_key] }",
       description: "BigMoney Membership - #{current_user.email}",
       amount: 20_00
     }
+  end
+
+  private
+
+  def downgrade_user_to_standard
+    current_user.standard!
+    # cancel any stripe subscriptions
   end
 end

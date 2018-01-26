@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   #has_many :collaborators
   has_one :collaborator
+  has_many :wikis
 delegate :wiki_collaborations, to: :collaborator
   enum role: [:standard, :premium, :admin]
 end

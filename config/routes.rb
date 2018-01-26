@@ -12,5 +12,5 @@ Rails.application.routes.draw do
    root 'welcome#index'
 
    resources :charges, only: [:new, :create]
-   resources :downgrades, only: [:new, :create]
+   # resources :downgrades, only: [:new, :create]
 end

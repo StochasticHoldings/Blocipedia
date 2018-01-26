@@ -14,6 +14,10 @@ class WikiPolicy < ApplicationPolicy
     create?
   end
 
+  def show?
+    create?
+  end
+
   def update?
     user.present?
   end

@@ -1,0 +1,5 @@
+<%= form_for [@wiki, Collaborator.new] do |f| %>
+  <%= f.label :collaborators %>
+  <%= f.select :user, options_for_select(@user_emails, :selected => params[:user]) %>
+  <%= f.submit 'Save' %>
+<% end %>

@@ -1,5 +1,4 @@
-class CollaboratorController < ApplicationController
-  class CollaboratorsController < ApplicationController
+class CollaboratorsController < ApplicationController
   def update
     @wiki = Wiki.find(params[:wiki_id])
     authorize @wiki
@@ -24,7 +23,7 @@ class CollaboratorController < ApplicationController
       else
         flash[:alert] = "#{user.email} was not added as a collaborator"
       end
-      redirect_to edit_wiki_path(@wiki)
+      redirect_to wiki_path(@wiki)
     end
   end
 
@@ -39,5 +38,4 @@ class CollaboratorController < ApplicationController
     end
     redirect_to edit_wiki_path(@wiki)
   end
-end
 end
